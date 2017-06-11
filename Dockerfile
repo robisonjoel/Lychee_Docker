@@ -7,7 +7,7 @@ RUN apk add libressl
 RUN apk add nginx 
 RUN apk add supervisor
 RUN apk add php7 php7-fpm
-RUN apk add php7-mysqli php7-imagick php7-gd ttf-dejavu php7-mcrypt php7-json php7-session
+RUN apk add php7-mysqli php7-imagick php7-gd ttf-dejavu php7-mcrypt php7-json php7-session php7-exif php7-zip php7-mbstring
 
 ## Grab Lychee V3.1.6 for now - more pipeline builds to come later
 RUN wget https://github.com/electerious/Lychee/archive/v3.1.6.tar.gz -O /tmp/Lychee.tar.gz
@@ -19,6 +19,7 @@ RUN mkdir /etc/supervisor.d
 RUN touch /var/log/supervisord.log
 RUN mkdir /control
 RUN chown nginx /var/log/supervisord.log /control
+RUN rm /etc/php7/php-fpm.d/*
 
 ### Extract Lychee & set perms
 RUN tar xzf /tmp/Lychee.tar.gz -C /var/www/
@@ -34,7 +35,10 @@ COPY build/lychee-nginx.conf /etc/nginx/conf.d/
 COPY build/base-nginx.conf /etc/nginx/nginx.conf
 
 ### Setup PHP-FPM config
-COPY build/lychee-php.conf /etc/php7/php-fpm.d/www.conf
+COPY build/lychee-php-fpm.conf /etc/php7/php-fpm.d/lychee.conf
+
+### Setup PHP ini 
+COPY build/lychee-php.ini /etc/php7/php-fpm.d/php.ini
 
 ### Setup Supervisord (Using this as we need both php-fpm running and nginx) - know a better way? please let me know
 COPY build/lychee-supervisor.ini /etc/supervisor.d/
