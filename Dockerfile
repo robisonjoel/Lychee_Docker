@@ -25,6 +25,7 @@ RUN rm /etc/php7/php-fpm.d/*
 RUN tar xzf /tmp/Lychee.tar.gz -C /var/www/
 RUN mv /var/www/Lychee-3.1.6 /var/www/lychee
 RUN chown -R nginx:nginx /var/www/lychee
+RUN chown -R nobody /var/www/lychee/uploads /var/www/lychee/data
 
 ## Final Configuration items
 ### Setup Lychee config
