@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: lychee-dev-ingress
+  annotations:
+    kubernetes.io/ingress.class: app-ingress-nginx
+spec:
+  rules:
+  - host: lychee.robisons.wan
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: lychee-dev
+            servicePort: 80

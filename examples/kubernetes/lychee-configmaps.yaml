@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lychee-dev-config
+data:
+  config.php: |
+    <?php
+    // Database configuration
+    $dbHost = "lychee-mysql"; // Host of the database
+    $dbUser = "root"; // Username of the database - I know, terrible
+    $dbPassword = "Th1sIs@T3st!"; // Password of the database
+    $dbName = "lychee"; // Database name
+    $dbTablePrefix = ""; // Table prefix 

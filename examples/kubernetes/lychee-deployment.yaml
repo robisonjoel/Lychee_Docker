@@ -1,0 +1,30 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: lychee-dev
+  name: lychee-dev
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: lychee-dev
+    spec:
+      containers: 
+      - image: jrobison/lychee_docker:latest
+        name: lychee-dev
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+        - name: JOOMLA_DB_HOST
+          value: "lychee-mysql"
+        volumeMounts:
+        - mountPath: "/var/www/lychee/data"
+          name: lychee-dev-config-volume
+      volumes:
+      - configMap:
+          name: lychee-dev-config
+        name: lychee-dev-config-volume
