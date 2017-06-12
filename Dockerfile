@@ -38,9 +38,6 @@ COPY build/base-nginx.conf /etc/nginx/nginx.conf
 ### Setup PHP-FPM config
 COPY build/lychee-php-fpm.conf /etc/php7/php-fpm.d/lychee.conf
 
-### Setup PHP ini 
-COPY build/lychee-php.ini /etc/php7/php-fpm.d/php.ini
-
 ### Setup Supervisord (Using this as we need both php-fpm running and nginx) - know a better way? please let me know
 COPY build/lychee-supervisor.ini /etc/supervisor.d/
 
